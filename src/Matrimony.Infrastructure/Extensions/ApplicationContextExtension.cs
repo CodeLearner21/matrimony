@@ -1,4 +1,6 @@
-﻿using Matrimony.Infrastructure.Data.EntityFramework;
+﻿using Matrimony.Infrastructure.Data.Entities;
+using Matrimony.Infrastructure.Data.EntityFramework;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -26,7 +28,7 @@ namespace Matrimony.Infrastructure.Extensions
 
         public static void EnsureSeeded(this ApplicationDbContext context)
         {
-            // Seed database with default values
+            
         }
     }
 }

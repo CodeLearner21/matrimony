@@ -19,14 +19,23 @@ namespace Matrimony.WebAPI.Controllers
 
         private readonly IRegisterUserUseCase _registerUserUseCase;
         private readonly ILoginUserUsecase _loginUserUsecase;
+        private readonly IResetPasswordUseCase _resetPasswordUseCase;
         private readonly RegisterUserPresenter _registerUserPresenter;
         private readonly LoginPresenter _loginPresenter;
-        public AccountController(IRegisterUserUseCase registerUserUseCase, RegisterUserPresenter registerUserPresenter, ILoginUserUsecase loginUserUsecase, LoginPresenter loginPresenter)
+        private readonly PasswordResetPresenter _passwordResetPresenter;
+        public AccountController(IRegisterUserUseCase registerUserUseCase, 
+            RegisterUserPresenter registerUserPresenter, 
+            ILoginUserUsecase loginUserUsecase, 
+            LoginPresenter loginPresenter,
+            IResetPasswordUseCase resetPasswordUseCase,
+            PasswordResetPresenter passwordResetPresenter)
         {
             _registerUserUseCase = registerUserUseCase;
             _registerUserPresenter = registerUserPresenter;
             _loginUserUsecase = loginUserUsecase;
             _loginPresenter = loginPresenter;
+            _resetPasswordUseCase = resetPasswordUseCase;
+            _passwordResetPresenter = passwordResetPresenter;
         }
 
         [AllowAnonymous]
@@ -52,6 +61,18 @@ namespace Matrimony.WebAPI.Controllers
 
             await _loginUserUsecase.Handle(new LoginRequest(request.UserName, request.Password), _loginPresenter);
             return _loginPresenter.ContentResult;
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("password-reset")]
+        public async Task<ActionResult> Post([FromBody] Models.Request.ResetPasswordRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            await _resetPasswordUseCase.Handle(new PasswordResetRequest(request.Email), _passwordResetPresenter);
+            return _passwordResetPresenter.ContentResult;
         }
     }
 }

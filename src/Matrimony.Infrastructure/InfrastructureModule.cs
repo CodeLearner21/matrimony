@@ -5,6 +5,7 @@ using Matrimony.Core.Interfaces.Services;
 using Matrimony.Infrastructure.Auth;
 using Matrimony.Infrastructure.Data.EntityFramework.Repositories;
 using Matrimony.Infrastructure.Data.Mapping;
+using Matrimony.Infrastructure.Email;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,13 @@ namespace Matrimony.Infrastructure
     {
         protected override void Load(ContainerBuilder builder)
         {
+            
             builder.RegisterType<UserRepository>().As<IUserRepository>().InstancePerLifetimeScope();            
             builder.RegisterType<DataProfile>().As<Profile>();
-            builder.RegisterType<JwtFactory>().As<IJwtFactory>().SingleInstance();
+            builder.RegisterType<JwtFactory>().As<IJwtFactory>().SingleInstance();            
+            builder.RegisterType<EmailService>().As<IEmailService>().SingleInstance();
+            builder.RegisterType<EmailConfig>().SingleInstance();
+
         }
     }
 }

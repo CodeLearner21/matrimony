@@ -36,6 +36,11 @@ namespace Matrimony.Infrastructure.Data.EntityFramework.Repositories
             return _mapper.Map<User>(await _userManager.FindByNameAsync(userName));
         }
 
+        public async Task<User> FindByEmail(string email)
+        {
+            return _mapper.Map<User>(await _userManager.FindByEmailAsync(email));
+        }
+
         public async Task<bool> CheckPassword(User user, string password)
         {
             return await _userManager.CheckPasswordAsync(_mapper.Map<AppUser>(user), password);

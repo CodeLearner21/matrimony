@@ -7,9 +7,6 @@ using System.Text;
 
 namespace Matrimony.Infrastructure.Data.Entities
 {
-    public class AppUser : IdentityUser
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-    }
+    public class AppRole: IdentityRole
+    {}
 }

@@ -7,6 +7,7 @@ using Matrimony.Infrastructure;
 using Matrimony.Infrastructure.Auth;
 using Matrimony.Infrastructure.Data.Entities;
 using Matrimony.Infrastructure.Data.EntityFramework;
+using Matrimony.Infrastructure.Email;
 using Matrimony.Infrastructure.Extensions;
 using Matrimony.WebAPI.Extensions;
 using Matrimony.WebAPI.Presenters;
@@ -47,6 +48,20 @@ namespace Matrimony.WebAPI
         {
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default"), b => b.MigrationsAssembly("Matrimony.Infrastructure")));
+
+            // Get options from app settings
+            var emailSettingsOptions = Configuration.GetSection(nameof(EmailConfig));
+            // Configure EmailConfig
+            services.Configure<EmailConfig>(options => 
+            {
+                options.ServerName = emailSettingsOptions[nameof(EmailConfig.ServerName)];
+                options.ServerPort = int.Parse(emailSettingsOptions[nameof(EmailConfig.ServerPort)]);
+                options.UserName = emailSettingsOptions[nameof(EmailConfig.UserName)];
+                options.UserPassword = emailSettingsOptions[nameof(EmailConfig.UserPassword)];
+            });
+
+
+            
             // jwt wire up
             // Get options from app settings
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
@@ -123,6 +138,7 @@ namespace Matrimony.WebAPI
             // Presenters
             builder.RegisterType<RegisterUserPresenter>().SingleInstance();
             builder.RegisterType<LoginPresenter>().SingleInstance();
+            builder.RegisterType<PasswordResetPresenter>().SingleInstance();
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).Where(t => t.Name.EndsWith("Presenter")).SingleInstance();
             
 
