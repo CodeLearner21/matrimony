@@ -7,6 +7,6 @@ namespace Matrimony.Core.Interfaces.Services
 {
     public interface IEmailService
     {
-        Task SendEmailAsync();
+        Task SendEmailAsync(string emailTo, string emailSubject, string emailBody);
     }
 }

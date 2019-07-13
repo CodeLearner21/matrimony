@@ -33,9 +33,14 @@ namespace Matrimony.Core.UseCases
                 if (user != null)
                 {
                     // Send password link through email
-                    await _emailService.SendEmailAsync();
+                    var subjectLine = "Password Reset Link";
+                    var resetLink = @"https://somedomainlink.com/password-reset/?" + user.Id;
+                    var emailBodyText = $"Hey {user.FirstName} {user.LastName}! <a href='{resetLink}' target='_blank'>click here to reset password</a>";
 
-                    outputPort.Handle(new PasswordResetResponse("Please check your inbox for reset password link", true));
+
+                    await _emailService.SendEmailAsync(user.Email, subjectLine, emailBodyText);
+
+                    outputPort.Handle(new PasswordResetResponse("Please check your email address for password reset link", true));
                     return true;
                 }
             }

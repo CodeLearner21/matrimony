@@ -49,18 +49,9 @@ namespace Matrimony.WebAPI
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default"), b => b.MigrationsAssembly("Matrimony.Infrastructure")));
 
-            // Get options from app settings
-            var emailSettingsOptions = Configuration.GetSection(nameof(EmailConfig));
-            // Configure EmailConfig
-            services.Configure<EmailConfig>(options => 
-            {
-                options.ServerName = emailSettingsOptions[nameof(EmailConfig.ServerName)];
-                options.ServerPort = int.Parse(emailSettingsOptions[nameof(EmailConfig.ServerPort)]);
-                options.UserName = emailSettingsOptions[nameof(EmailConfig.UserName)];
-                options.UserPassword = emailSettingsOptions[nameof(EmailConfig.UserPassword)];
-            });
-
-
+            
+            // Configure Email settings
+            services.Configure<EmailConfig>(Configuration.GetSection(nameof(EmailConfig)));
             
             // jwt wire up
             // Get options from app settings
