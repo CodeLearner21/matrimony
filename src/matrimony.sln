@@ -3,11 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matrimony.Core", "Matrimony.Core\Matrimony.Core.csproj", "{3F13FFA9-7C89-42B7-BA66-972A1876EFEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Matrimony.Core", "Matrimony.Core\Matrimony.Core.csproj", "{3F13FFA9-7C89-42B7-BA66-972A1876EFEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matrimony.Infrastructure", "Matrimony.Infrastructure\Matrimony.Infrastructure.csproj", "{989AC384-B8A6-4F6C-A33A-B1875FEDA384}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Matrimony.Infrastructure", "Matrimony.Infrastructure\Matrimony.Infrastructure.csproj", "{989AC384-B8A6-4F6C-A33A-B1875FEDA384}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matrimony.WebAPI", "Matrimony.WebAPI\Matrimony.WebAPI.csproj", "{C873A28C-2A7D-4166-9342-2DEC2D433349}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Matrimony.WebAPI", "Matrimony.WebAPI\Matrimony.WebAPI.csproj", "{C873A28C-2A7D-4166-9342-2DEC2D433349}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{B82AB7DB-B53F-43B7-8BFC-8EB298B26110}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.NUnitTests", "Core.NUnitTests\Core.NUnitTests.csproj", "{EBAC233E-CFC2-49E3-A499-9C2379DB7431}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.NUnitTests", "WebApi.NUnitTests\WebApi.NUnitTests.csproj", "{38491B41-93F7-4E9C-B607-F99199A9880A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,9 +61,37 @@ Global
 		{C873A28C-2A7D-4166-9342-2DEC2D433349}.Release|x64.Build.0 = Release|Any CPU
 		{C873A28C-2A7D-4166-9342-2DEC2D433349}.Release|x86.ActiveCfg = Release|Any CPU
 		{C873A28C-2A7D-4166-9342-2DEC2D433349}.Release|x86.Build.0 = Release|Any CPU
+		{EBAC233E-CFC2-49E3-A499-9C2379DB7431}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBAC233E-CFC2-49E3-A499-9C2379DB7431}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBAC233E-CFC2-49E3-A499-9C2379DB7431}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EBAC233E-CFC2-49E3-A499-9C2379DB7431}.Debug|x64.Build.0 = Debug|Any CPU
+		{EBAC233E-CFC2-49E3-A499-9C2379DB7431}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EBAC233E-CFC2-49E3-A499-9C2379DB7431}.Debug|x86.Build.0 = Debug|Any CPU
+		{EBAC233E-CFC2-49E3-A499-9C2379DB7431}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBAC233E-CFC2-49E3-A499-9C2379DB7431}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBAC233E-CFC2-49E3-A499-9C2379DB7431}.Release|x64.ActiveCfg = Release|Any CPU
+		{EBAC233E-CFC2-49E3-A499-9C2379DB7431}.Release|x64.Build.0 = Release|Any CPU
+		{EBAC233E-CFC2-49E3-A499-9C2379DB7431}.Release|x86.ActiveCfg = Release|Any CPU
+		{EBAC233E-CFC2-49E3-A499-9C2379DB7431}.Release|x86.Build.0 = Release|Any CPU
+		{38491B41-93F7-4E9C-B607-F99199A9880A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38491B41-93F7-4E9C-B607-F99199A9880A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38491B41-93F7-4E9C-B607-F99199A9880A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{38491B41-93F7-4E9C-B607-F99199A9880A}.Debug|x64.Build.0 = Debug|Any CPU
+		{38491B41-93F7-4E9C-B607-F99199A9880A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{38491B41-93F7-4E9C-B607-F99199A9880A}.Debug|x86.Build.0 = Debug|Any CPU
+		{38491B41-93F7-4E9C-B607-F99199A9880A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38491B41-93F7-4E9C-B607-F99199A9880A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38491B41-93F7-4E9C-B607-F99199A9880A}.Release|x64.ActiveCfg = Release|Any CPU
+		{38491B41-93F7-4E9C-B607-F99199A9880A}.Release|x64.Build.0 = Release|Any CPU
+		{38491B41-93F7-4E9C-B607-F99199A9880A}.Release|x86.ActiveCfg = Release|Any CPU
+		{38491B41-93F7-4E9C-B607-F99199A9880A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EBAC233E-CFC2-49E3-A499-9C2379DB7431} = {B82AB7DB-B53F-43B7-8BFC-8EB298B26110}
+		{38491B41-93F7-4E9C-B607-F99199A9880A} = {B82AB7DB-B53F-43B7-8BFC-8EB298B26110}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DAE4B79-9772-4F1C-9B96-AB51544260E6}
