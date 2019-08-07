@@ -52,7 +52,11 @@ namespace Matrimony.WebAPI
             
             // Configure Email settings
             services.Configure<EmailConfig>(Configuration.GetSection(nameof(EmailConfig)));
-            
+            // CORS
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
             // jwt wire up
             // Get options from app settings
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
@@ -195,6 +199,7 @@ namespace Matrimony.WebAPI
             app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseCors();
         }
     }
 }
