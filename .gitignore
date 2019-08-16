@@ -1,0 +1,9 @@
+src/.vs/
+src/Matrimony.Core/obj/
+src/Matrimony.Infrastructure/obj/
+src/Matrimony.WebAPI/bin/
+src/Matrimony.WebAPI/obj/
+src/Matrimony.Infrastructure/bin/
+src/Matrimony.Core/bin/
+src/Core.NUnitTests/bin/
+src/Core.NUnitTests/obj/
