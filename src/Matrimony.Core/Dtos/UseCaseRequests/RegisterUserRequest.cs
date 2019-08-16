@@ -11,15 +11,13 @@ namespace Matrimony.Core.Dtos.UseCaseRequests
         public string FirstName { get; }
         public string LastName { get; }
         public string Email { get; }
-        public string UserName { get; }
         public string Password { get; }
 
-        public RegisterUserRequest(string firstName, string lastName, string email, string userName, string password)
+        public RegisterUserRequest(string firstName, string lastName, string email, string password)
         {
             FirstName = firstName;
             LastName = lastName;
             Email = email;
-            UserName = userName;
             Password = password;
         }
     }
