@@ -36,6 +36,8 @@ namespace Matrimony.WebAPI
 
         private const string SecretKey = "iNivDmHLpUA223sqsfhqGbMRdRj1PVkH"; // todo: get this from somewhere secure
         private readonly SymmetricSecurityKey _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
+        public const string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -53,9 +55,15 @@ namespace Matrimony.WebAPI
             // Configure Email settings
             services.Configure<EmailConfig>(Configuration.GetSection(nameof(EmailConfig)));
             // CORS
-            services.AddCors(c =>
+            services.AddCors(options =>
             {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+                options.AddPolicy(MyAllowSpecificOrigins,
+                b =>
+                {
+                    b.WithOrigins("http://localhost:4200");
+                    b.AllowAnyMethod();
+                    b.AllowAnyHeader();
+                });
             });
             // jwt wire up
             // Get options from app settings
@@ -134,6 +142,7 @@ namespace Matrimony.WebAPI
             builder.RegisterType<RegisterUserPresenter>().SingleInstance();
             builder.RegisterType<LoginPresenter>().SingleInstance();
             builder.RegisterType<PasswordResetPresenter>().SingleInstance();
+            builder.RegisterType<CreatePortfolioPresenter>().SingleInstance();
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).Where(t => t.Name.EndsWith("Presenter")).SingleInstance();
             
 
@@ -192,14 +201,14 @@ namespace Matrimony.WebAPI
 
             }
 
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            // Enable middleware to serve generated Swagger as a JSON endpoint.            
             app.UseAuthentication();
             app.UseSwagger();
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            app.UseHttpsRedirection();
+            app.UseCors(MyAllowSpecificOrigins);
+            app.UseHttpsRedirection();            
             app.UseMvc();
-            app.UseCors();
         }
     }
 }

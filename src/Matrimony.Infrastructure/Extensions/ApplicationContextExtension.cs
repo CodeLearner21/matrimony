@@ -28,7 +28,69 @@ namespace Matrimony.Infrastructure.Extensions
 
         public static void EnsureSeeded(this ApplicationDbContext context)
         {
+
+            // Default user
+            var testUser = new AppUser
+            {
+                UserName = "test123",
+                FirstName = "test",
+                LastName = "demo",
+                Email = "test@demo.com",
+                PasswordHash = "Test+123456"
+            };
             
+
+            // Default Portfolio types
+            List<PortfolioType> portfolioTypes = new List<PortfolioType>
+            {
+                new PortfolioType { Name = "Self" },
+                new PortfolioType { Name = "Son" },
+                new PortfolioType { Name = "Doughter" },
+                new PortfolioType { Name = "Brother" },
+                new PortfolioType { Name = "Sister" },
+                new PortfolioType { Name = "Relative" }
+            };
+            context.PortfolioTypes.AddRange(portfolioTypes);
+
+            // Default Religion
+            var religion = new Religion
+            {
+                Name = "Hindu",
+                Communities = new List<Community>
+                {
+                    new Community
+                    {
+                        Name = "Gujarati",
+                        Castes = new List<Caste>
+                        {
+                            new Caste
+                            {
+                                Name = "Jain",
+                                SubCastes = new List<SubCaste>
+                                {
+                                    new SubCaste
+                                    {
+                                        Name = "Kutchi Gurjar"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+            context.Religions.Add(religion);
+
+            // Default portfolio
+            var portfolio = new Portfolio
+            {
+                ProfileName = string.Format("{0} {1}", testUser.FirstName, testUser.LastName),                
+                PortfolioTypeId = portfolioTypes.FirstOrDefault().Id,
+                SubCasteId = religion.Communities.FirstOrDefault().Castes.FirstOrDefault().SubCastes.FirstOrDefault().Id
+            };
+            context.Portfolios.Add(portfolio);
+            testUser.Portfolio = portfolio;
+            context.Users.Add(testUser);
+            context.SaveChanges();
         }
     }
 }
