@@ -21,6 +21,7 @@ namespace Matrimony.Infrastructure
             
             builder.RegisterType<UserRepository>().As<IUserRepository>().InstancePerLifetimeScope();
             builder.RegisterType<PortfolioRepository>().As<IPortfolioRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<ReligionRepository>().As<IReligionRepository>().InstancePerLifetimeScope();
             builder.RegisterType<DataProfile>().As<Profile>();
             builder.RegisterType<JwtFactory>().As<IJwtFactory>().SingleInstance();            
             builder.RegisterType<EmailService>().As<IEmailService>().SingleInstance();
