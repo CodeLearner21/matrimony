@@ -19,6 +19,7 @@ namespace Matrimony.Core
             builder.RegisterType<LoginUserUsecase>().As<ILoginUserUsecase>().InstancePerLifetimeScope();
             builder.RegisterType<ResetPasswordUseCase>().As<IResetPasswordUseCase>().InstancePerLifetimeScope();
             builder.RegisterType<CreatePortfolioUseCase>().As<ICreatePortfolioUseCase>().InstancePerLifetimeScope();
+            builder.RegisterType<GetAllReligionsUserCase>().As<IGetAllReligionsUserCase>().InstancePerLifetimeScope();
         }
     }
 }
