@@ -11,5 +11,7 @@ namespace Matrimony.Infrastructure.Data.Entities
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        public Portfolio Portfolio { get; set; }
     }
 }

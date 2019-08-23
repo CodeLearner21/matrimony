@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Matrimony.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190627065831_InitialCreate")]
+    [Migration("20190819112912_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,6 +74,110 @@ namespace Matrimony.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Matrimony.Infrastructure.Data.Entities.Caste", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CommunityId");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommunityId");
+
+                    b.ToTable("Castes");
+                });
+
+            modelBuilder.Entity("Matrimony.Infrastructure.Data.Entities.Community", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("ReligionId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReligionId");
+
+                    b.ToTable("Communities");
+                });
+
+            modelBuilder.Entity("Matrimony.Infrastructure.Data.Entities.Portfolio", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId");
+
+                    b.Property<int>("PortfolioTypeId");
+
+                    b.Property<string>("ProfileName");
+
+                    b.Property<int>("SubCasteId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId")
+                        .IsUnique()
+                        .HasFilter("[AppUserId] IS NOT NULL");
+
+                    b.HasIndex("PortfolioTypeId");
+
+                    b.HasIndex("SubCasteId");
+
+                    b.ToTable("Portfolios");
+                });
+
+            modelBuilder.Entity("Matrimony.Infrastructure.Data.Entities.PortfolioType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PortfolioTypes");
+                });
+
+            modelBuilder.Entity("Matrimony.Infrastructure.Data.Entities.Religion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Religions");
+                });
+
+            modelBuilder.Entity("Matrimony.Infrastructure.Data.Entities.SubCaste", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CasteId");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CasteId");
+
+                    b.ToTable("SubCastes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -184,6 +288,47 @@ namespace Matrimony.Infrastructure.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Matrimony.Infrastructure.Data.Entities.Caste", b =>
+                {
+                    b.HasOne("Matrimony.Infrastructure.Data.Entities.Community", "Community")
+                        .WithMany("Castes")
+                        .HasForeignKey("CommunityId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Matrimony.Infrastructure.Data.Entities.Community", b =>
+                {
+                    b.HasOne("Matrimony.Infrastructure.Data.Entities.Religion", "Religion")
+                        .WithMany("Communities")
+                        .HasForeignKey("ReligionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Matrimony.Infrastructure.Data.Entities.Portfolio", b =>
+                {
+                    b.HasOne("Matrimony.Infrastructure.Data.Entities.AppUser", "AppUser")
+                        .WithOne("Portfolio")
+                        .HasForeignKey("Matrimony.Infrastructure.Data.Entities.Portfolio", "AppUserId");
+
+                    b.HasOne("Matrimony.Infrastructure.Data.Entities.PortfolioType", "PortfolioType")
+                        .WithMany("Portfolios")
+                        .HasForeignKey("PortfolioTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Matrimony.Infrastructure.Data.Entities.SubCaste", "SubCaste")
+                        .WithMany()
+                        .HasForeignKey("SubCasteId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Matrimony.Infrastructure.Data.Entities.SubCaste", b =>
+                {
+                    b.HasOne("Matrimony.Infrastructure.Data.Entities.Caste", "Caste")
+                        .WithMany("SubCastes")
+                        .HasForeignKey("CasteId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

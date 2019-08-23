@@ -7,9 +7,11 @@ namespace Matrimony.Core.Dtos.GatewayResponses.Repositories
     public class CreateUserResponse : BaseGatewayResponse
     {
         public string Id { get; }
-        public CreateUserResponse(string id, bool success = false, IEnumerable<ResponseError> errors = null) : base(success, errors)
+        public string UserName { get; set; }
+        public CreateUserResponse(string id, string userName, bool success = false, IEnumerable<ResponseError> errors = null) : base(success, errors)
         {
             Id = id;
+            UserName = userName;
         }
     }
 }

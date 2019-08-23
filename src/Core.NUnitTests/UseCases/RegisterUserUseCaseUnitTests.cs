@@ -29,7 +29,7 @@ namespace Core.NUnitTests.UseCases
             var mockUserRepository = new Mock<IUserRepository>();
             mockUserRepository
               .Setup(repo => repo.Create(It.IsAny<User>(), It.IsAny<string>()))
-              .Returns(Task.FromResult(new CreateUserResponse("", true)));
+              .Returns(Task.FromResult(new CreateUserResponse("", "", true)));
 
             // 2. The use case and star of this test
             var useCase = new RegisterUserUseCase(mockUserRepository.Object);

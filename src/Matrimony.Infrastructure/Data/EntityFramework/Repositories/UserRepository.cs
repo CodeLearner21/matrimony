@@ -26,19 +26,19 @@ namespace Matrimony.Infrastructure.Data.EntityFramework.Repositories
 
         public async Task<CreateUserResponse> Create(User user, string password)
         {
-            string randomUserName;
+            string randomUserName = null;
             do
             {
                 Random generator = new Random();
                 String r = generator.Next(0, 999999).ToString("D6");
                 randomUserName = "KGJ" + r.ToString();
             }
-            while (randomUserName == null || FindByName(randomUserName) != null);
+            while (string.IsNullOrWhiteSpace(randomUserName) || await FindByName(randomUserName) != null);
             user.UserName = randomUserName;
 
             var appUser = _mapper.Map<AppUser>(user);
             var identityResult = await _userManager.CreateAsync(appUser, password);
-            return new CreateUserResponse(appUser.Id, identityResult.Succeeded, identityResult.Succeeded ? null : identityResult.Errors.Select(e => new ResponseError(e.Code, e.Description)));
+            return new CreateUserResponse(appUser.Id, appUser.UserName, identityResult.Succeeded, identityResult.Succeeded ? null : identityResult.Errors.Select(e => new ResponseError(e.Code, e.Description)));
         }
 
         public async Task<User> FindByName(string userName)

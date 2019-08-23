@@ -50,6 +50,32 @@ namespace Matrimony.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PortfolioTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PortfolioTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Religions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Religions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -155,6 +181,100 @@ namespace Matrimony.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Communities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    ReligionId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Communities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Communities_Religions_ReligionId",
+                        column: x => x.ReligionId,
+                        principalTable: "Religions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Castes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    CommunityId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Castes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Castes_Communities_CommunityId",
+                        column: x => x.CommunityId,
+                        principalTable: "Communities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SubCastes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    CasteId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubCastes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubCastes_Castes_CasteId",
+                        column: x => x.CasteId,
+                        principalTable: "Castes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Portfolios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ProfileName = table.Column<string>(nullable: true),
+                    AppUserId = table.Column<string>(nullable: true),
+                    PortfolioTypeId = table.Column<int>(nullable: false),
+                    SubCasteId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Portfolios", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Portfolios_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Portfolios_PortfolioTypes_PortfolioTypeId",
+                        column: x => x.PortfolioTypeId,
+                        principalTable: "PortfolioTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Portfolios_SubCastes_SubCasteId",
+                        column: x => x.SubCasteId,
+                        principalTable: "SubCastes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -193,6 +313,38 @@ namespace Matrimony.Infrastructure.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Castes_CommunityId",
+                table: "Castes",
+                column: "CommunityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Communities_ReligionId",
+                table: "Communities",
+                column: "ReligionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Portfolios_AppUserId",
+                table: "Portfolios",
+                column: "AppUserId",
+                unique: true,
+                filter: "[AppUserId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Portfolios_PortfolioTypeId",
+                table: "Portfolios",
+                column: "PortfolioTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Portfolios_SubCasteId",
+                table: "Portfolios",
+                column: "SubCasteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubCastes_CasteId",
+                table: "SubCastes",
+                column: "CasteId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -213,10 +365,28 @@ namespace Matrimony.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Portfolios");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "PortfolioTypes");
+
+            migrationBuilder.DropTable(
+                name: "SubCastes");
+
+            migrationBuilder.DropTable(
+                name: "Castes");
+
+            migrationBuilder.DropTable(
+                name: "Communities");
+
+            migrationBuilder.DropTable(
+                name: "Religions");
         }
     }
 }

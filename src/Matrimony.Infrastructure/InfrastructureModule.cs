@@ -19,7 +19,8 @@ namespace Matrimony.Infrastructure
         protected override void Load(ContainerBuilder builder)
         {
             
-            builder.RegisterType<UserRepository>().As<IUserRepository>().InstancePerLifetimeScope();            
+            builder.RegisterType<UserRepository>().As<IUserRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<PortfolioRepository>().As<IPortfolioRepository>().InstancePerLifetimeScope();
             builder.RegisterType<DataProfile>().As<Profile>();
             builder.RegisterType<JwtFactory>().As<IJwtFactory>().SingleInstance();            
             builder.RegisterType<EmailService>().As<IEmailService>().SingleInstance();
