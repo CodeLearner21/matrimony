@@ -14,11 +14,6 @@ namespace Matrimony.Infrastructure.Data.EntityFramework
     {
         public DbSet<Portfolio> Portfolios { get; set; }
         public DbSet<PortfolioType> PortfolioTypes { get; set; }
-        public DbSet<Religion> Religions { get; set; }
-        public DbSet<Community> Communities { get; set; }
-        public DbSet<Caste> Castes { get; set; }
-        public DbSet<SubCaste> SubCastes { get; set; }
-
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
