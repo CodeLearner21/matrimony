@@ -10,7 +10,6 @@ namespace Matrimony.WebAPI.Models.Request
         public string FullName { get; set; }
         public string UserId { get; set; }
         public int PortfolioTypeId { get; set; }
-        public int SubCasteId { get; set; }        
 
     }
 }

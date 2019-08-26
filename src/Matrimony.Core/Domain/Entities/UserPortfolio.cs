@@ -10,19 +10,16 @@ namespace Matrimony.Core.Domain.Entities
         public string ProfileName { get; set; }
         public string UserId { get; set; }
         public int PortfolioTypeId { get; set; }
-        public int SubCasteId { get; set; }
 
         public UserPortfolio(string profileName,
             string userId, 
             int portfolioTypeId, 
-            int subCasteId, 
             int id = 0)
         {
             Id = id;
             ProfileName = profileName;
             UserId = userId;
             PortfolioTypeId = portfolioTypeId;
-            SubCasteId = subCasteId;
         }
     }
 }

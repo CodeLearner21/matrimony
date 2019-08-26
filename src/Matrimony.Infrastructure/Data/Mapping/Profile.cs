@@ -22,44 +22,15 @@ namespace Matrimony.Infrastructure.Data.Mapping
                     Id = up.Id,
                     ProfileName = up.ProfileName,
                     AppUserId = up.UserId,
-                    PortfolioTypeId = up.PortfolioTypeId,
-                    SubCasteId = up.SubCasteId
+                    PortfolioTypeId = up.PortfolioTypeId
                 });
 
             CreateMap<Portfolio, UserPortfolio>()
                 .ConstructUsing(p => new UserPortfolio(
                     p.ProfileName,
                     p.AppUserId, 
-                    p.PortfolioTypeId, 
-                    p.SubCasteId, 
+                    p.PortfolioTypeId,
                     p.Id ));
-
-            CreateMap<SubCasteEntity, SubCaste>();
-            CreateMap<SubCaste, SubCasteEntity>();
-
-            CreateMap<CasteEntity, Caste>()
-                .ForMember(m => m.SubCastes, opt => opt.MapFrom(s => s.SubCastes));
-
-            CreateMap<Caste, CasteEntity>()
-                .ForMember(m => m.SubCastes, opt => opt.MapFrom(s => s.SubCastes));
-
-            CreateMap<ReligionEntity, Religion>()
-                .ForMember(m => m.Communities, opt => opt.MapFrom(s => s.Communities));
-
-            CreateMap<Religion, ReligionEntity>()
-                .ForMember(m => m.Communities, opt => opt.MapFrom(s => s.Communities));
-
-            CreateMap<CommunityEntity, Community>()
-                .ForMember(m => m.Castes, opt => opt.MapFrom(s => s.Castes));
-
-            CreateMap<Community, CommunityEntity>()
-                .ForMember(m => m.Castes, opt => opt.MapFrom(s => s.Castes));
-
-            CreateMap<ReligionEntity, Religion>()
-                .ForMember(m => m.Communities, opt => opt.MapFrom(s => s.Communities));
-
-            CreateMap<Religion, ReligionEntity>()
-                .ForMember(m => m.Communities, opt => opt.MapFrom(s => s.Communities)); 
 
         }
     }

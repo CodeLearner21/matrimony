@@ -14,8 +14,5 @@ namespace Matrimony.Infrastructure.Data.Entities
 
         public int PortfolioTypeId { get; set; }
         public PortfolioType PortfolioType { get; set; }
-
-        public int SubCasteId { get; set; }
-        public SubCaste SubCaste { get; set; }
     }
 }

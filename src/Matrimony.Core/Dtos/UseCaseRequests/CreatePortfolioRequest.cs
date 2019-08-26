@@ -11,14 +11,12 @@ namespace Matrimony.Core.Dtos.UseCaseRequests
         public string ProfileName { get; set; }
         public string UserId { get; set; }
         public int PortfolioTypeId { get; set; }
-        public int SubCasteId { get; set; }
 
-        public CreatePortfolioRequest(string profileName, string userId, int portfolioTypeId, int subCasteId)
+        public CreatePortfolioRequest(string profileName, string userId, int portfolioTypeId)
         {
             ProfileName = profileName;
             UserId = userId;
             PortfolioTypeId = portfolioTypeId;
-            SubCasteId = subCasteId;
         }
     }
 }
