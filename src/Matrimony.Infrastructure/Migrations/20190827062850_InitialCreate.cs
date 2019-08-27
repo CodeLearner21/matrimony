@@ -175,6 +175,8 @@ namespace Matrimony.Infrastructure.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ProfileName = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    BirthDate = table.Column<DateTime>(nullable: false),
                     AppUserId = table.Column<string>(nullable: true),
                     PortfolioTypeId = table.Column<int>(nullable: false)
                 },

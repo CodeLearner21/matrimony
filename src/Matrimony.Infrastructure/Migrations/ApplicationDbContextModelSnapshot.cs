@@ -82,6 +82,10 @@ namespace Matrimony.Infrastructure.Migrations
 
                     b.Property<string>("AppUserId");
 
+                    b.Property<DateTime>("BirthDate");
+
+                    b.Property<string>("Gender");
+
                     b.Property<int>("PortfolioTypeId");
 
                     b.Property<string>("ProfileName");

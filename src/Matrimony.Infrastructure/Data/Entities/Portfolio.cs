@@ -9,6 +9,8 @@ namespace Matrimony.Infrastructure.Data.Entities
     {
         public int Id { get; set; }
         public string ProfileName { get; set; }
+        public string Gender { get; set; }
+        public DateTime BirthDate { get; set; }
         public string AppUserId { get; set; }        
         public AppUser AppUser { get; set; }
 

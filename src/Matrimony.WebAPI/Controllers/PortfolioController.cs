@@ -34,7 +34,7 @@ namespace Matrimony.WebAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            await _createPortfolioUseCase.Handle(new CreatePortfolioRequest(request.FullName, request.UserId, request.PortfolioTypeId), _createPortfolioPresenter);
+            await _createPortfolioUseCase.Handle(new CreatePortfolioRequest(request.FullName, request.Gender, request.BirthDate, request.UserId, request.PortfolioTypeId), _createPortfolioPresenter);
             return _createPortfolioPresenter.ContentResult;
         }
     }

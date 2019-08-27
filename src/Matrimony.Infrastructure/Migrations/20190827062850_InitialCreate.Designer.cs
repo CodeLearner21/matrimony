@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Matrimony.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190826072948_InitialCreate")]
+    [Migration("20190827062850_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,6 +83,10 @@ namespace Matrimony.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AppUserId");
+
+                    b.Property<DateTime>("BirthDate");
+
+                    b.Property<string>("Gender");
 
                     b.Property<int>("PortfolioTypeId");
 

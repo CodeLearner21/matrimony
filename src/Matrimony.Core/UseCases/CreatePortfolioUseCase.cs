@@ -21,7 +21,7 @@ namespace Matrimony.Core.UseCases
         }
         public async Task<bool> Handle(CreatePortfolioRequest request, IOutputPort<CreatePortfolioResponse> outputPort)
         {
-            var response = await _portfolioRepository.Create(new UserPortfolio(request.ProfileName, request.UserId, request.PortfolioTypeId));
+            var response = await _portfolioRepository.Create(new UserPortfolio(request.ProfileName, request.Gender, request.BirthDate, request.UserId, request.PortfolioTypeId));
             outputPort.Handle(response.Success ? new CreatePortfolioResponse(response.Id, true) : new CreatePortfolioResponse(response.Errors.Select(e => e.Description)));
 
             return response.Success;
