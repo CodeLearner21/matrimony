@@ -21,6 +21,8 @@ namespace Matrimony.Infrastructure.Data.Mapping
                 {
                     Id = up.Id,
                     ProfileName = up.ProfileName,
+                    Gender = up.Gender,
+                    BirthDate = up.BirthDate,
                     AppUserId = up.UserId,
                     PortfolioTypeId = up.PortfolioTypeId
                 });
@@ -28,6 +30,8 @@ namespace Matrimony.Infrastructure.Data.Mapping
             CreateMap<Portfolio, UserPortfolio>()
                 .ConstructUsing(p => new UserPortfolio(
                     p.ProfileName,
+                    p.Gender,
+                    p.BirthDate,
                     p.AppUserId, 
                     p.PortfolioTypeId,
                     p.Id ));
