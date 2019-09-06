@@ -36,6 +36,9 @@ namespace Matrimony.Infrastructure.Data.Mapping
                     p.PortfolioTypeId,
                     p.Id ));
 
+            CreateMap<PortfolioType, PortfolioTypeDomain>()
+                .ConstructUsing(pt => new PortfolioTypeDomain(pt.Name, pt.Id));
+
         }
     }
 }

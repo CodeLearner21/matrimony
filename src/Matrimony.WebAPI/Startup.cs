@@ -143,6 +143,7 @@ namespace Matrimony.WebAPI
             builder.RegisterType<LoginPresenter>().SingleInstance();
             builder.RegisterType<PasswordResetPresenter>().SingleInstance();
             builder.RegisterType<CreatePortfolioPresenter>().SingleInstance();
+            builder.RegisterType<PortfolioTypeListPresenter>().SingleInstance();
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).Where(t => t.Name.EndsWith("Presenter")).SingleInstance();
             
 
