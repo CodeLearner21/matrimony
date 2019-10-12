@@ -18,12 +18,17 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -65,7 +70,7 @@ namespace Matrimony.WebAPI
                     b.AllowAnyHeader();
                 });
             });
-            // jwt wire up
+            // JWT wire up
             // Get options from app settings
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
 
@@ -121,14 +126,36 @@ namespace Matrimony.WebAPI
             // Add MVC
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            // Automapper
-            //services.AddAutoMapper(typeof(Startup));
-
-            // Add Swagger
-            services.AddSwaggerGen(c => 
+            // Add Swagger and configure versioning
+            // Add ApiVersioning
+            services.AddApiVersioning(options =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Matrimony Web API", Version = "v1" });
+                options.ReportApiVersions = true;
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
             });
+
+            services.AddVersionedApiExplorer(options =>
+            {
+                // add the versioned api explorer, which also adds IApiVersionDescriptionProvider service
+                // note: the specified format code will format the version as "'v'major[.minor][-status]"
+                options.GroupNameFormat = "'v'VVV";
+
+                // note: this option is only necessary when versioning by url segment. the SubstitutionFormat
+                // can also be used to control the format of the API version in route templates
+                options.SubstituteApiVersionInUrl = true;
+            });
+
+            services.AddSwaggerGen(options =>
+            {
+                // add a custom operation filter which sets default values
+                options.OperationFilter<SwaggerDefaultValues>();
+
+                // integrate xml comments
+                options.IncludeXmlComments(XmlCommentsFilePath);
+            });
+
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
 
             // Autofac
@@ -154,7 +181,7 @@ namespace Matrimony.WebAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApiVersionDescriptionProvider apiVersioningProvider)
         {
             if (env.IsDevelopment())
             {
@@ -182,14 +209,7 @@ namespace Matrimony.WebAPI
                                 await context.Response.WriteAsync(error.Error.Message).ConfigureAwait(false);
                             }
                         });
-                });
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CleanAspNetCoreWebAPI V1");
-            });
+                });            
 
             // Update Database
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
@@ -203,13 +223,32 @@ namespace Matrimony.WebAPI
             }
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.            
-            app.UseAuthentication();
+            app.UseAuthentication();            
             app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                // build a swagger endpoint for each discovered API version
+                foreach (var description in apiVersioningProvider.ApiVersionDescriptions)
+                {
+                    options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                }
+            });
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpsRedirection();            
             app.UseMvc();
+        }
+
+        static string XmlCommentsFilePath
+        {
+            get
+            {
+                var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                var fileName = typeof(Startup).GetTypeInfo().Assembly.GetName().Name + ".xml";
+
+                return Path.Combine(basePath, fileName);
+            }
         }
     }
 }

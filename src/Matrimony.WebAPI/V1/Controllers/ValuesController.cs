@@ -4,9 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Matrimony.WebAPI.Controllers
+namespace Matrimony.WebAPI.V1.Controllers
 {
-    [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [Route("api/V{v:apiVersion}/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
     {

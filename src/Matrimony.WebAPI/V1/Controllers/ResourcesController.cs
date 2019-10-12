@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Matrimony.WebAPI.Controllers
+namespace Matrimony.WebAPI.V1.Controllers
 {
-    //[Authorize]
-    [Route("api/[controller]")]
+    [Authorize]
+    [Route("api/V{v:apiVersion}/[controller]")]
     [ApiController]
     public class ResourcesController : ControllerBase
     {

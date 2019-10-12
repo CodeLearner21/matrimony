@@ -41,7 +41,7 @@ namespace Matrimony.Infrastructure.Data.EntityFramework.Repositories
                 throw;
             }
 
-            return new PortfolioAddedResponse(portfolio.Id, success, responseErrors);
+            return new PortfolioAddedResponse(portfolio.Id.ToString(), success, responseErrors);
         }
     }
 }

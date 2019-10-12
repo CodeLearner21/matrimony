@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Matrimony.WebAPI.Controllers
+namespace Matrimony.WebAPI.V1.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/V{v:apiVersion}/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -59,7 +59,7 @@ namespace Matrimony.WebAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _loginUserUsecase.Handle(new LoginRequest(request.UserName, request.Password), _loginPresenter);
+            await _loginUserUsecase.Handle(new LoginRequest(request.Email, request.Password), _loginPresenter);
             return _loginPresenter.ContentResult;
         }
 

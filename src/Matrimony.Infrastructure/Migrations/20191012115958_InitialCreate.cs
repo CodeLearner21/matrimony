@@ -172,8 +172,7 @@ namespace Matrimony.Infrastructure.Migrations
                 name: "Portfolios",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
                     ProfileName = table.Column<string>(nullable: true),
                     Gender = table.Column<string>(nullable: true),
                     BirthDate = table.Column<DateTime>(nullable: false),

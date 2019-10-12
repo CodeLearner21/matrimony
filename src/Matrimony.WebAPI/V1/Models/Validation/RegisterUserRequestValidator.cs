@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Matrimony.WebAPI.Models.Validation
+namespace Matrimony.WebAPI.V1.Models.Validation
 {
     public class RegisterUserRequestValidator : AbstractValidator<RegisterUserRequest>
     {
