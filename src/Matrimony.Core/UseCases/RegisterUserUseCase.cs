@@ -23,7 +23,7 @@ namespace Matrimony.Core.UseCases
         public async Task<bool> Handle(RegisterUserRequest request, IOutputPort<RegisterUserResponse> outputPort)
         {
             var response = await _userRepository.Create(new User(request.FirstName, request.LastName, request.Email), request.Password);
-            outputPort.Handle(response.Success ? new RegisterUserResponse(response.Id, response.UserName, true) : new RegisterUserResponse(response.Errors.Select(e => e.Description)));
+            outputPort.Handle(response.Success ? new RegisterUserResponse(response.Id, true) : new RegisterUserResponse(response.Errors.Select(e => e.Description)));
 
             return response.Success;
         }

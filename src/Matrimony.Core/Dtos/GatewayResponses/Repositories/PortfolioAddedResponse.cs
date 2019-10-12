@@ -6,8 +6,8 @@ namespace Matrimony.Core.Dtos.GatewayResponses.Repositories
 {
     public class PortfolioAddedResponse : BaseGatewayResponse
     {
-        public int Id { get; set; }
-        public PortfolioAddedResponse(int id, bool success = false, IEnumerable<ResponseError> errors = null) : base(success, errors)
+        public string Id { get; set; }
+        public PortfolioAddedResponse(string id, bool success = false, IEnumerable<ResponseError> errors = null) : base(success, errors)
         {
             Id = id;
         }

@@ -19,7 +19,7 @@ namespace Matrimony.Infrastructure.Data.Mapping
             CreateMap<UserPortfolio, Portfolio>()
                 .ConstructUsing(up => new Portfolio
                 {
-                    Id = up.Id,
+                    Id = Guid.NewGuid(),
                     ProfileName = up.ProfileName,
                     Gender = up.Gender,
                     BirthDate = up.BirthDate,
@@ -34,7 +34,7 @@ namespace Matrimony.Infrastructure.Data.Mapping
                     p.BirthDate,
                     p.AppUserId, 
                     p.PortfolioTypeId,
-                    p.Id ));
+                    p.Id.ToString()));
 
             CreateMap<PortfolioType, PortfolioTypeDomain>()
                 .ConstructUsing(pt => new PortfolioTypeDomain(pt.Name, pt.Id));

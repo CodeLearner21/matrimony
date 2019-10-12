@@ -8,7 +8,6 @@ namespace Matrimony.Core.Dtos.UseCaseResponses
     public class RegisterUserResponse : UseCaseResponseMessage
     {
         public string Id { get; }
-        public string UserName { get; set; }
         public IEnumerable<string> Errors { get; }
 
         public RegisterUserResponse(IEnumerable<string> errors, bool success = false, string message = null) : base(success, message)
@@ -16,10 +15,9 @@ namespace Matrimony.Core.Dtos.UseCaseResponses
             Errors = errors;
         }
 
-        public RegisterUserResponse(string id, string userName, bool success = false, string message = null) : base(success, message)
+        public RegisterUserResponse(string id, bool success = false, string message = null) : base(success, message)
         {
             Id = id;
-            UserName = userName;
         }
     }
 }

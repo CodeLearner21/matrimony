@@ -76,9 +76,8 @@ namespace Matrimony.Infrastructure.Migrations
 
             modelBuilder.Entity("Matrimony.Infrastructure.Data.Entities.Portfolio", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("AppUserId");
 

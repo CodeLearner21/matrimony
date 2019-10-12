@@ -26,10 +26,10 @@ namespace Matrimony.Core.UseCases
 
         public async Task<bool> Handle(LoginRequest request, IOutputPort<LoginResponse> outputPort)
         {
-            if(!string.IsNullOrEmpty(request.UserName) && !string.IsNullOrEmpty(request.Password))
+            if(!string.IsNullOrEmpty(request.Email) && !string.IsNullOrEmpty(request.Password))
             {
                 // confirm we have a user with the given name
-                var user = await _userRepository.FindByName(request.UserName);
+                var user = await _userRepository.FindByEmail(request.Email);
                 if (user != null)
                 {
                     // validate password

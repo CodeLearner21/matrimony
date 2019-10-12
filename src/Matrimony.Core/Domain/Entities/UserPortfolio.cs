@@ -6,7 +6,7 @@ namespace Matrimony.Core.Domain.Entities
 {
     public class UserPortfolio
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string ProfileName { get; set; }
         public string Gender { get; set; }
         public DateTime BirthDate { get; set; }
@@ -18,7 +18,7 @@ namespace Matrimony.Core.Domain.Entities
             DateTime birthDate,
             string userId,
             int portfolioTypeId, 
-            int id = 0)
+            string id = null)
         {
             Id = id;
             ProfileName = profileName;

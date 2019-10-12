@@ -8,12 +8,12 @@ namespace Matrimony.Core.Dtos.UseCaseRequests
 {
     public class LoginRequest : IUseCaseRequest<LoginResponse>
     {
-        public string UserName { get; }
+        public string Email { get; }
         public string Password { get; }
 
-        public LoginRequest(string userName, string password)
+        public LoginRequest(string email, string password)
         {
-            UserName = userName;
+            Email = email;
             Password = password;
         }
     }
