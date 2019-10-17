@@ -1,8 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using AutoMapper;
 using Matrimony.Core;
-using Matrimony.Core.Interfaces.UseCases;
 using Matrimony.Infrastructure;
 using Matrimony.Infrastructure.Auth;
 using Matrimony.Infrastructure.Data.Entities;
@@ -25,7 +23,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
-using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.IO;
@@ -164,13 +161,8 @@ namespace Matrimony.WebAPI
             builder.RegisterModule(new CoreModule());
             builder.RegisterModule(new InfrastructureModule());
             builder.RegisterModule(new MappingProfileModule());
-
-            // Presenters
-            builder.RegisterType<RegisterUserPresenter>().SingleInstance();
-            builder.RegisterType<LoginPresenter>().SingleInstance();
-            builder.RegisterType<PasswordResetPresenter>().SingleInstance();
-            builder.RegisterType<CreatePortfolioPresenter>().SingleInstance();
-            builder.RegisterType<PortfolioTypeListPresenter>().SingleInstance();
+            builder.RegisterModule(new APIPresenterModule());
+            
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).Where(t => t.Name.EndsWith("Presenter")).SingleInstance();
             
 

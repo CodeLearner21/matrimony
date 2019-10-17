@@ -11,17 +11,16 @@ namespace Matrimony.Core.Domain.Entities
         public string LastName { get; }
         public string Email { get; }
         public string UserName { get; set; }
-        public string PasswordHash { get; }
+        public string Password { get; set; }
 
-
-        public User(string firstName, string lastName, string email, string userName = null, string id = null, string passwordHash = null)
+        public User(string firstName, string lastName, string email, string userName = null, string id = null, string password = null)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
             Email = email;
             UserName = userName;
-            PasswordHash = passwordHash;
+            Password = password;
         }
     }
 }
