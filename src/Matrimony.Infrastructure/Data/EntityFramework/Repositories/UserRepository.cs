@@ -4,6 +4,7 @@ using Matrimony.Core.Dtos.GatewayResponses;
 using Matrimony.Core.Dtos.GatewayResponses.Repositories;
 using Matrimony.Core.Interfaces.Gateways;
 using Matrimony.Infrastructure.Data.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -51,9 +52,15 @@ namespace Matrimony.Infrastructure.Data.EntityFramework.Repositories
             return _mapper.Map<User>(await _userManager.FindByEmailAsync(email));
         }
 
+        public async Task<User> FindById(string id)
+        {
+            return _mapper.Map<User>(await _userManager.FindByIdAsync(id));
+        }
+
         public async Task<bool> CheckPassword(User user, string password)
         {
             return await _userManager.CheckPasswordAsync(_mapper.Map<AppUser>(user), password);
         }
+
     }
 }
