@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Matrimony.WebAPI.Handlers.FileHandler;
 using Matrimony.WebAPI.Presenters;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,10 @@ namespace Matrimony.WebAPI
             builder.RegisterType<CreatePortfolioPresenter>().SingleInstance();
             builder.RegisterType<PortfolioTypeListPresenter>().SingleInstance();
             builder.RegisterType<CurrentUserPresenter>().SingleInstance();
+            builder.RegisterType<UploadProfilePhotoPresenter>().SingleInstance();
+            builder.RegisterType<UserPortfolioPresenter>().SingleInstance();
+            builder.RegisterType<PortfolioFilesPresenter>().SingleInstance();
+            builder.RegisterType<FileHandler>().SingleInstance();
         }
     }
 }

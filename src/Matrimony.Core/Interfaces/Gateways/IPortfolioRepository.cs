@@ -10,5 +10,9 @@ namespace Matrimony.Core.Interfaces.Gateways
     public interface IPortfolioRepository
     {
         Task<PortfolioAddedResponse> Create(UserPortfolio userPortfolio);
+        Task<FileCreatedResponse> AddFile(PortfolioFile userFile);
+        Task<UserPortfolio> FindByUserName(string userName);
+        Task<GetPortfolioByUserIdResponse> GetByUserId(string userId);
+        Task<GetFilesResponse> GetFilesById(string portfolioId);
     }
 }

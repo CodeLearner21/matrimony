@@ -14,6 +14,7 @@ namespace Matrimony.Infrastructure.Data.EntityFramework
     {
         public DbSet<Portfolio> Portfolios { get; set; }
         public DbSet<PortfolioType> PortfolioTypes { get; set; }
+        public DbSet<PortfolioDocument> Files { get; set; }
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {

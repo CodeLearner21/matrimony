@@ -29,7 +29,34 @@ namespace Matrimony.Infrastructure.Data.Mapping
                     au.UserName, 
                     au.Id,
                     au.PasswordHash));
-            
+
+            CreateMap<PortfolioType, PortfolioTypeDomain>()
+                .ConstructUsing(pt => new PortfolioTypeDomain(
+                    pt.Name, 
+                    pt.Id));
+
+            CreateMap<PortfolioFile, PortfolioDocument>()
+                .ConvertUsing(pf => new PortfolioDocument
+                {
+                    Id = new Guid(),
+                    Type = pf.Type,
+                    Title = pf.Title,
+                    Name = pf.Name,
+                    DirectoryName = pf.DirectoryName,
+                    DateCreated = pf.DateCreated,
+                    PortfolioId = Guid.Parse(pf.PortfolioId)
+                });
+
+            CreateMap<PortfolioDocument, PortfolioFile>()
+                .ConstructUsing(pd => new PortfolioFile(
+                    pd.Type,
+                    pd.Title,
+                    pd.Name,
+                    pd.DirectoryName,
+                    pd.DateCreated, 
+                    pd.PortfolioId.ToString(), 
+                    pd.Id.ToString()));
+
             CreateMap<UserPortfolio, Portfolio>()
                 .ConstructUsing(up => new Portfolio
                 {
@@ -46,12 +73,9 @@ namespace Matrimony.Infrastructure.Data.Mapping
                     p.ProfileName,
                     p.Gender,
                     p.BirthDate,
-                    p.AppUserId, 
-                    p.PortfolioTypeId,
+                    p.AppUserId,
+                    p.PortfolioTypeId,                    
                     p.Id.ToString()));
-
-            CreateMap<PortfolioType, PortfolioTypeDomain>()
-                .ConstructUsing(pt => new PortfolioTypeDomain(pt.Name, pt.Id));
 
         }
     }

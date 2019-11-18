@@ -16,5 +16,7 @@ namespace Matrimony.Infrastructure.Data.Entities
 
         public int PortfolioTypeId { get; set; }
         public PortfolioType PortfolioType { get; set; }
+
+        public IEnumerable<PortfolioDocument> Files { get; set; }
     }
 }

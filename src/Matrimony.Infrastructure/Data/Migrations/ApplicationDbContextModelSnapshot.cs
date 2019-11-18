@@ -4,16 +4,14 @@ using Matrimony.Infrastructure.Data.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Matrimony.Infrastructure.Migrations
+namespace Matrimony.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191012115958_InitialCreate")]
-    partial class InitialCreate
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,6 +98,30 @@ namespace Matrimony.Infrastructure.Migrations
                     b.HasIndex("PortfolioTypeId");
 
                     b.ToTable("Portfolios");
+                });
+
+            modelBuilder.Entity("Matrimony.Infrastructure.Data.Entities.PortfolioDocument", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("DirectoryName");
+
+                    b.Property<string>("Name");
+
+                    b.Property<Guid>("PortfolioId");
+
+                    b.Property<string>("Title");
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PortfolioId");
+
+                    b.ToTable("Files");
                 });
 
             modelBuilder.Entity("Matrimony.Infrastructure.Data.Entities.PortfolioType", b =>
@@ -234,6 +256,14 @@ namespace Matrimony.Infrastructure.Migrations
                     b.HasOne("Matrimony.Infrastructure.Data.Entities.PortfolioType", "PortfolioType")
                         .WithMany("Portfolios")
                         .HasForeignKey("PortfolioTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Matrimony.Infrastructure.Data.Entities.PortfolioDocument", b =>
+                {
+                    b.HasOne("Matrimony.Infrastructure.Data.Entities.Portfolio", "Portfolio")
+                        .WithMany("Photos")
+                        .HasForeignKey("PortfolioId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

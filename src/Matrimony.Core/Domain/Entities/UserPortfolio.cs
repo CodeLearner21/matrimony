@@ -17,7 +17,7 @@ namespace Matrimony.Core.Domain.Entities
             string gender,
             DateTime birthDate,
             string userId,
-            int portfolioTypeId, 
+            int portfolioTypeId,
             string id = null)
         {
             Id = id;
@@ -26,6 +26,7 @@ namespace Matrimony.Core.Domain.Entities
             BirthDate = birthDate;
             UserId = userId;
             PortfolioTypeId = portfolioTypeId;
+
         }
     }
 }

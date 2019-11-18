@@ -7,3 +7,4 @@ src/Matrimony.Infrastructure/bin/
 src/Matrimony.Core/bin/
 src/Core.NUnitTests/bin/
 src/Core.NUnitTests/obj/
+src/Matrimony.WebAPI/wwwroot/media/

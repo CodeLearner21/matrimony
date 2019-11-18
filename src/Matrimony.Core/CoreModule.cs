@@ -21,6 +21,9 @@ namespace Matrimony.Core
             builder.RegisterType<CreatePortfolioUseCase>().As<ICreatePortfolioUseCase>().InstancePerLifetimeScope();
             builder.RegisterType<GetPortfolioListUseCase>().As<IGetPortfolioListUseCase>().InstancePerLifetimeScope();
             builder.RegisterType<CurrentUserUseCase>().As<ICurrentUserUseCase>().InstancePerLifetimeScope();
+            builder.RegisterType<UploadProfilePhotoUseCase>().As<IUploadProfilePhotoUseCase>().InstancePerLifetimeScope();
+            builder.RegisterType<GetUserPortfolioUseCase>().As<IGetUserPortfolioUseCase>().InstancePerLifetimeScope();
+            builder.RegisterType<GetFilesByPortfolioIdUseCase>().As<IGetFilesByPortfolioIdUseCase>().InstancePerLifetimeScope();
         }
     }
 }

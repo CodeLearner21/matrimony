@@ -23,8 +23,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -145,6 +147,19 @@ namespace Matrimony.WebAPI
 
             services.AddSwaggerGen(options =>
             {
+                options.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                {
+                    In = "header",
+                    Description = "Please insert JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = "apiKey"
+                });
+
+                options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                {
+                    { "Bearer", new string[] { } }
+                });
+
                 // add a custom operation filter which sets default values
                 options.OperationFilter<SwaggerDefaultValues>();
 
@@ -228,7 +243,8 @@ namespace Matrimony.WebAPI
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseCors(MyAllowSpecificOrigins);
-            app.UseHttpsRedirection();            
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseMvc();
         }
 
